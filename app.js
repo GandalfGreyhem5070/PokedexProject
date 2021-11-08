@@ -24,12 +24,22 @@ function createPokeCard(pokemon) {
 
 // The getPokemonData fucntion makes an Axios GET request to the PokeApi using a specific pokemone ID/Number then takes the return data and passes it into the createPokeCard fucntion
 // NOTE: The argument/value passed into the "id" paramenter will be a number creates in the loop in the nxt function (The getPokemon function)
-async function getPokemonData(id){
-    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    const pokemonData = await axios.get(url);
-    console.log(pokemonData);
-    console.log(pokemonData.data.sprites.front_shiny);
-    console.log(pokemonData.data.name);
-    createPokeCard(pokemonData);
+async function getPokemonData(id) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const pokemonData = await axios.get(url);
+  console.log(pokemonData);
+  console.log(pokemonData.data.sprites.front_shiny);
+  console.log(pokemonData.data.name);
+  createPokeCard(pokemonData);
 }
 
+//The getPokemon fucntion loops through all the pokemon IDs and runds/executes the getPokemonData function for each ID
+//NOTE: Using async/await on this fucntion b/c the code in the getPokemonData function is asynchronus(there is an Axios request in that function)
+async function getPokemon() {
+  for (i = 1; i <= numOfPokemon; i++) {
+    console.log(i);
+    await getPokemonData(i);
+  }
+}
+//Running/Executing the getPokemon function which runs/executes the getPokemonData function each time through the loop
+getPokemon();
